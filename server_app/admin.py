@@ -10,6 +10,8 @@ from flask import flash, redirect, request
 from flask_admin import Admin, expose ,AdminIndexView
 from server_app import utils
 
+#tai de den 
+
 class MyAdmin(AdminIndexView):
     @expose('/')
     def index(self):

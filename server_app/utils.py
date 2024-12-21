@@ -55,3 +55,4 @@ def total_amount_by_month():
 
     # Chuyển kết quả thành danh sách từ điển để trả về JSON hoặc sử dụng trong template
     return result
+#da tao tai

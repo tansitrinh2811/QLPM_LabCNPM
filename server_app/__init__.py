@@ -19,6 +19,11 @@ cloudinary.config(
     api_secret = 'hd1cRj177f0HVAQ-vSeqG_yT9Y0'
 )
 
+
+
+#da tao si1
+
+
 # Download the helper library from https://www.twilio.com/docs/python/install
 
 

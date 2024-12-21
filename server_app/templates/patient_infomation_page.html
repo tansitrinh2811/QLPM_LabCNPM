@@ -1,0 +1,48 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Hồ sơ cá nhân{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center mt-4 mb-4">
+    <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
+        <h1 class="text-3xl font-semibold mb-6 text-center">Hồ sơ cá nhân</h1>
+        <form action="{{ url_for('update_patient_infor', user_id=current_user.id) }}" method="post" enctype="multipart/form-data">
+            <div class="mb-4">
+              <label for="namebn" class="block text-gray-700 font-bold mb-2">Họ và tên</label>
+              <input type="text" id="namebn" name="namebn" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required value="{{ current_user.hoTen }}">
+
+            </div>
+            <div class="mb-4">
+                <label for="sex" class="block text-gray-700 text-sm font-bold mb-2">Giới tính</label>
+                <select id="sex" name="sex" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500">
+                    <option value="male">Nam</option>
+                    <option value="female">Nữ</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="birth" class="block text-gray-700 font-bold mb-2">Ngày sinh</label>
+                <input type="date" id="birth" name="birth" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500">
+              </div>
+            <div class="mb-4">
+              <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+              <input type="email" id="email" name="email" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required value="{{current_user.email}}">
+            </div>
+            <div class="mb-4">
+                <label for="avatar" class="block text-gray-700 font-bold mb-2">Avatar:</label>
+                <input type="file" id="avatar" name="avatar"  class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+              <label for="phone" class="block text-gray-700 font-bold mb-2">Số điện thoại</label>
+              <input type="text" id="phone" name="phone" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="mb-4">
+              <label for="address" class="block text-gray-700 font-bold mb-2">Địa chỉ</label>
+              <input type="text" id="address" name="address" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="flex justify-center">
+              <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Xác nhận</button>
+            </div>
+          </form>
+    </div>
+</div>
+{% endblock %}

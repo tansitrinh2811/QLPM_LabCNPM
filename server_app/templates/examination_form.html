@@ -1,0 +1,77 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Lập phiếu khám{% endblock %}
+
+{% block content %}
+<section>
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <div class="bg-white p-8 rounded shadow-md w-full">
+
+           {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <script>
+            // Function to display the toast notification
+            function showToast(message, type) {
+                const toast = document.createElement('div');
+                toast.className = 'toast ' + (type === 'error' ? 'toast-error' : 'toast-success');
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 5000); // Remove toast after 5 seconds
+            }
+
+            {% for category, message in messages %}
+                showToast("{{ message }}", "{{ category }}");
+            {% endfor %}
+        </script>
+    {% endif %}
+{% endwith %}
+
+
+            <form action="#" id="examForm" method="post">
+                <h2 class="text-center text-3xl font-bold text-gray-900">Lập phiếu khám</h2>
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                    <div class="w-full">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Họ tên bệnh nhân</label>
+                        <input onchange="saveDataExams()" type="text" name="name" id="name" class="saveExamData bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Họ tên bệnh nhân" required="">
+                    </div>
+                    <div class="w-full">
+                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Ngày khám</label>
+                        <input onchange="saveDataExams()" type="date" name="date" id="date" class="saveExamData bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                    </div>
+                    <div class="w-full">
+                        <label for="symptom" class="block mb-2 text-sm font-medium text-gray-900">Triệu chứng</label>
+                        <input onchange="saveDataExams()" type="text" name="symptom" id="symptom" class="saveExamData bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                    </div>
+                    <div class="w-full">
+                        <label for="disease" class="block mb-2 text-sm font-medium text-gray-900">Dự đoán loại bệnh</label>
+                        <input onchange="saveDataExams()" type="text" name="disease" id="disease" class="saveExamData bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                    </div>
+                    <div class="w-full">
+                        <label for="medicineName" class="block mb-2 text-sm font-medium text-gray-900">Tên thuốc</label>
+                        <input onchange="saveDataExams()" type="text" name="medicineName" id="medicineName" class="saveExamData bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                    </div>
+                    <div class="w-full">
+                        <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900">Số lượng</label>
+                        <input onchange="saveDataExams()" type="number" name="quantity" id="quantity" class="saveExamData bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" min="0" required="">
+                    </div>
+                    <div>
+                        <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Đơn vị</label>
+                        <select id="unit" name="unit" class="saveExamData bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                            <option value="1">Viên</option>
+                            <option value="2">Chai</option>
+                            <option value="3">Vỹ</option>
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <label for="instruction" class="block mb-2 text-sm font-medium text-gray-900">Cách dùng</label>
+                        <input onchange="saveDataExams()" type="text" name="instruction" id="instruction" class="saveExamData bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                    </div>
+                </div>
+                <button type="submit" class="bg-green-700 inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800">
+                    Lập phiếu khám
+                </button>
+            </form>
+        </div>
+    </div>
+  </section>
+{% endblock %}

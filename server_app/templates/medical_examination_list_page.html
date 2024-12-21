@@ -1,0 +1,114 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Danh sách khám bệnh{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-10 py-8">
+    <h1 class="text-center text-3xl font-bold mb-4">Danh sách khám bệnh</h1>
+
+    <div class="mb-4">
+        <form action="/medical_list" method="get">
+            <input type="text" name="date" placeholder="Tìm kiếm..." class="border border-gray-300 max-w-xl py-2 rounded-md w-full">
+            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none" type="submit">Tìm kiếm</button>
+            
+            <div class="relative overflow-x-auto shadow-lg border-gray-200 border rounded-lg" id="medicalRecords">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Họ tên bệnh nhân
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Ngày giờ khám
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Số điện thoại
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in medical_list %}
+                        <tr class="bg-white border-b record">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ record[0] }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ record[2] }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ record[1] }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" id="showListBtn" class="mt-4 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                Lập danh sách
+            </button>
+        </form>
+    </div>   
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var medicalList = document.getElementById('medicalRecords');
+        var listBtn = document.getElementById('showListBtn');
+
+        if (medicalList) {
+            var recordCount = medicalList.getElementsByClassName('record').length;
+            if (recordCount === 0) {
+                listBtn.classList.add('hidden');
+            } else if (recordCount <= 40   ) {
+                listBtn.classList.remove('hidden');
+            }
+            else{
+                listBtn.classList.add('hidden');
+            }
+        }
+    });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var listBtn = document.getElementById('showListBtn');
+
+    listBtn.addEventListener('click', function() {
+        // Lấy tham số date từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var date = urlParams.get('date');  // Lấy giá trị của tham số 'date' từ URL
+
+        // Kiểm tra nếu date không rỗng
+        if (date) {
+            // Gửi yêu cầu tới máy chủ Flask để tạo tệp PDF với tham số date
+            fetch(`/generate_pdf/${date}`, {
+                method: 'GET',
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                // Tạo một URL đặc biệt cho tệp PDF
+                const url = window.URL.createObjectURL(blob);
+
+                // Tạo một thẻ <a> ẩn và nhấp vào để tải xuống tệp PDF
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'medical_list.pdf';
+                document.body.appendChild(a);
+                a.click();
+
+                // Xóa URL sau khi đã sử dụng
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        } else {
+            alert('Vui lòng nhập ngày trong URL!');
+        }
+    });
+});
+
+
+</script>
+{% endblock %}

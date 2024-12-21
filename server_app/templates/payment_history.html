@@ -1,0 +1,83 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Lịch sử thanh toán{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-10 py-8">
+    <h1 class="text-center text-3xl font-bold mb-4">Lịch sử thanh toán</h1>
+
+    <div class="mb-4">
+        <form action="#" method="get">
+            <input type="text" name="search_kw" placeholder="Tìm kiếm theo tên hoặc ngày"
+                   class="border border-gray-300 max-w-xl py-2 rounded-md w-full">
+            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
+                    type="submit">Tìm kiếm
+            </button>
+        </form>
+    </div>
+
+    <div class="relative overflow-x-auto shadow-lg border-gray-200 border rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3">Tên thu ngân</th>
+                <th scope="col" class="px-6 py-3">SDT bệnh nhân</th>
+                <th scope="col" class="px-6 py-3">Ngày lập</th>
+                <th scope="col" class="px-6 py-3">ID phiếu khám</th>
+                <th scope="col" class="px-6 py-3">Tiền khám</th>
+                <th scope="col" class="px-6 py-3">Tiền thuốc</th>
+                <th scope="col" class="px-6 py-3">Tổng tiền</th>
+                <th scope="col" class="px-6 py-3">Trạng thái</th>
+                <th scope="col" class="px-6 py-3">Chức năng</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for hoa_don, thu_ngan, phieu_kham in hoa_dons %}
+            <tr class="bg-white border-b">
+                <td class="px-6 py-4">{{ thu_ngan.hoTen }}</td>
+                <td class="px-6 py-4">{{ phieu_kham.benhNhan.soDienThoai }}</td>
+                <td class="px-6 py-4">{{ phieu_kham.ngayKham }}</td>
+                <td class="px-6 py-4">{{ hoa_don.phieuKham_id }}</td>
+                <td class="px-6 py-4">{{ hoa_don.tienKham }}</td>
+                <td class="px-6 py-4">{{ hoa_don.tienThuoc }}</td>
+                <td class="px-6 py-4">{{ hoa_don.tongTien }}</td>
+                <td class="px-6 py-4">
+                    {% if hoa_don.tienKham > 0 and hoa_don.tienThuoc > 0 and hoa_don.tongTien > 0 %}
+                    <span class="text-green-500">Đã thanh toán</span>
+                    {% else %}
+                    <span class="text-red-500">Chưa thanh toán</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <button onclick="downloadInvoice({{ hoa_don.id }})" class="px-4 py-2 bg-blue-500 text-white rounded">
+                        Tải Hóa Đơn PDF
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+function downloadInvoice(hoaDonId) {
+    fetch(`/generate_invoice_pdf/${hoaDonId}`, {
+        method: 'GET',
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `invoice_${hoaDonId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(error => console.error('Error downloading invoice PDF:', error));
+}
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Lịch sử bệnh bệnh nhân{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-10 py-8">
+    <h1 class="text-center text-3xl font-bold mb-4">Lịch sử bệnh bệnh nhân</h1>
+    {% if pages > 1%}
+    <nav aria-label="Page navigation example">
+        <ul class="inline-flex -space-x-px text-base h-10 mt-2">
+            {% for idx in range(1, pages + 1) %}
+            <li><a href="{{ url_for('medicine_list',page=idx) }}" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">{{idx}}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+  
+        <form>
+            <input type="text" name="keywordPatient" placeholder="Tìm kiếm..." class="border border-gray-300 max-w-xl py-2 rounded-md w-full">
+            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none" type="submit">Tìm kiếm</button>
+            
+            <div class="relative overflow-x-auto shadow-lg border-gray-200 border rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Họ tên bệnh nhân
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Ngày khám
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Triệu chứng
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Dự đoán
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in patients %}
+                        <tr class="bg-white border-b">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{p[0]}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{p[1]}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{p[2]}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{p[3]}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+</div>
+{% endblock %}

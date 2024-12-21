@@ -1,0 +1,37 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Trang chủ{% endblock %}
+
+{% block content %}
+  <section class="rounded-b-lg bg-center bg-no-repeat bg-[url('https://www.chap-con.com/wp-content/uploads/2021/12/4946-2021-1118-chapman-lowell-hospital-randall-garnick-photography.jpg')] bg-stone-500 bg-blend-multiply">
+    <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+        <h1 class="mb-4 text-xl font-extrabold tracking-tight leading-none text-white md:text-2xl lg:text-4xl">CHÀO MỪNG BẠN ĐẾN VỚI PHÒNG MẠCH TƯ LT CLINIC</h1>
+        <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Chúng tôi cam kết mang đến cho bạn dịch vụ y tế chất lượng cao và thân thiện.</p>
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
+            <a href="/register_medical" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+              Đặt lịch khám
+                <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+  <!-- About Section -->
+  <section class="py-16">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="text-center md:text-left">
+          <img src="https://th.bing.com/th/id/OIP.Nd6Ig0fqeYoMVtxyT8nKnAHaFi?rs=1&pid=ImgDetMain" alt="Phòng khám tư nhân" class="rounded-r-lg shadow-md">
+        </div>
+        <div class="text-center md:pr-8 md:text-left">
+          <h2 class="text-3xl font-bold mb-4">Về chúng tôi</h2>
+          <p class="text-lg">Chúng tôi là một phòng khám tư nhân chuyên nghiệp, luôn hướng đến việc cung cấp các dịch vụ y tế tốt nhất cho bệnh nhân.</p>
+          <p class="text-lg mt-4">Chúng tôi có đội ngũ y bác sĩ tận tâm, giàu kinh nghiệm để đảm bảo bạn nhận được sự chăm sóc tốt nhất.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

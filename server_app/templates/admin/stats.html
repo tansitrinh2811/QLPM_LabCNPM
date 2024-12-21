@@ -1,0 +1,90 @@
+{% extends '/admin/base.html' %}
+
+{% block body %}
+<h1 class="text-center text-danger">THỐNG KÊ DOANH THU</h1>
+
+<div class="row">
+    <div class="col-md-5 col-xs-12">
+        <table class="table">
+            <tr>
+                <th>Tháng lập</th>
+                <th>Doanh thu</th>
+            </tr>
+
+            {% for s in money %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>
+                    {% if s[1] %}
+                        {{ "{:,.0f}".format(s[1]) }} VND
+                    {% else %}
+                        0 VND
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+    <div class="col-md-5 col-xs-12">
+
+        <form>
+            <div class="form-group">
+                <input type="number" placeholder="Nhập tháng" class="form-control" name="month" min="1" max="12"/>
+            </div>
+
+            <input type="submit" value="Thống kê" class="btn btn-info" />
+        </form>
+
+        <canvas id="myMoneyChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let name = [], info = []
+    let borderColors = [], colors = []
+    let r, g, b;
+
+    {% for s in money %}
+        name.push('{{ s[0] }}')
+        info.push({{ s[1] }})
+
+        r = Math.random()*255
+        g = Math.random()*255
+        b = Math.random()*255
+
+        colors.push(`rgba(${r}, ${g}, ${b}, 0.5)`)
+        borderColors.push(`rgba(${r}, ${g}, ${b}, 0.5)`)
+    {% endfor %}
+
+    window.onload = function() {
+        const ctx  = document.getElementById('myMoneyChart').getContext('2d');
+
+        loadChart(ctx, name, info, 'doughnut', colors, borderColors);
+    }
+
+    function loadChart(ctx, labels, data, type, colors, borderColors) {
+        new Chart(ctx, {
+            type: type,
+            data: {
+                labels: name,
+                datasets: [{
+                    label: 'Thống kê số sản phẩm theo danh mục',
+                    data: info,
+                    backgroundColor: colors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

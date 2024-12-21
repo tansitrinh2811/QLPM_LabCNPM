@@ -1,0 +1,44 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Đăng ký tài khoản{% endblock %}
+
+{% block content %}
+{% if err_msg %}
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md shadow-md">
+    <p>{{ err_msg }}</p>
+</div>
+{% endif %}
+
+<div class="flex justify-center items-center h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-80">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Đăng ký tài khoản</h2>
+        <form method="post" action="{{ url_for('user_register') }}" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Họ và tên</label>
+                <input type="text" id="name" name="name" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Tên đăng nhập</label>
+                <input type="text" id="username" name="username" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Mật khẩu</label>
+                <input type="password" id="password" name="password" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="confirm" class="block text-gray-700 text-sm font-bold mb-2">Xác nhận mật khẩu</label>
+                <input type="password" id="confirm" name="confirm" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" value="Đăng ký" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Đăng ký</button>
+            </div>
+        </form>
+        <div class="mx-auto flex justify-center mt-2">
+            <div class="text-gray-900 dark:text-black text-center">
+                <span>Đã có tài khoản? </span>
+                <a href="/login" class="text-blue-700 dark:text-blue-500 hover:underline">Đăng nhập tại đây</a>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Phiếu đăng ký lịch khám{% endblock %}
+
+{% block content %}
+
+{% if msg %}
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md shadow-md">
+  <p>{{ msg }}</p>
+</div>
+{% endif %}
+<div class="flex items-center justify-center mt-4 mb-4">
+    <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
+        <h1 class="text-3xl font-semibold mb-6 text-center">Phiếu đăng ký lịch khám</h1>
+        {% if current_user.loaiNguoiDung == Role.Patient %}
+          <form action="/register_medical" method="post">
+            <div class="mb-4">
+              <label for="namedatkham" class="block text-gray-700 font-bold mb-2">Họ và tên</label>
+              <input type="text" id="namedatkham" name="namedatkham" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required value="{{ current_user.hoTen }}">
+            </div>
+            <div class="mb-4">
+              <label for="phone" class="block text-gray-700 font-bold mb-2">Số điện thoại</label>
+              <input type="tel" id="phone" name="phone" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required value="{{ current_user.benhNhan.soDienThoai }}">
+            </div>
+            <div class="mb-4">
+              <label for="date" class="block text-gray-700 font-bold mb-2">Ngày hẹn</label>
+              <input type="date" id="date" name="date" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="mb-4">
+              <label for="time" class="block text-gray-700 font-bold mb-2">Giờ hẹn</label>
+              <input type="time" id="time" name="time" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="flex justify-center">
+              <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Đặt lịch</button>
+            </div>
+          </form>
+        {% elif current_user.loaiNguoiDung == Role.Nurse %}
+        <form action="/register_medical" method="post">
+          <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-bold mb-2">Họ và tên bệnh nhân</label>
+            <input type="text" id="name" name="name" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+          </div>
+          <div class="mb-4">
+            <label for="phone" class="block text-gray-700 font-bold mb-2">Số điện thoại</label>
+            <input type="tel" id="phone" name="phone" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+          </div>
+          <div class="mb-4">
+            <label for="date" class="block text-gray-700 font-bold mb-2">Ngày hẹn</label>
+            <input type="date" id="date" name="date" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+          </div>
+          <div class="mb-4">
+            <label for="time" class="block text-gray-700 font-bold mb-2">Giờ hẹn</label>
+            <input type="time" id="time" name="time" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+          </div>
+          <div class="flex justify-center">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Đặt lịch</button>
+          </div>
+        </form>
+        {% endif %}
+      </div>
+</div>
+{% endblock %}

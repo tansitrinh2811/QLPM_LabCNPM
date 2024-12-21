@@ -1,0 +1,90 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Thanh toán hóa đơn{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-10 py-8">
+    <h1 class="text-center text-3xl font-bold mb-4">Thanh toán hóa đơn</h1>
+
+    <div class="mb-4">
+        <form action="#" method="get">
+            <input type="text" name="kw" placeholder="Tìm kiếm hóa đơn theo tên" class="border border-gray-300 max-w-xl py-2 rounded-md w-full">
+            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none" type="submit">Tìm kiếm</button>
+            
+            <div class="relative overflow-x-auto shadow-lg border-gray-200 border rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Tên thu ngân
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tên bệnh nhân
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Ngày lập
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                ID phiếu khám
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tiền khám
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tiền thuốc
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Số lượng
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tổng tiền
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if hoa_don %}
+                        <tr class="bg-white border-b record">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ hoa_don.NguoiDung.hoTen }}  <!-- Hiển thị tên thu ngân -->
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ hoa_don.PhieuKham.benhNhan.hoTen }}  <!-- Hiển thị tên bệnh nhân -->
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hoa_don.PhieuKham.ngayKham }}  <!-- Hiển thị ngày lập -->
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hoa_don.PhieuKham.id }}  <!-- Hiển thị ID phiếu khám -->
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hoa_don.tienKham }}  <!-- Hiển thị tiền khám -->
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hoa_don.tienThuoc }}  <!-- Hiển thị tiền thuốc -->
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hoa_don.soLuong }}  <!-- Hiển thị số lượng -->
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hoa_don.tongTien }}  <!-- Hiển thị tổng tiền -->
+                            </td>
+                            <td class="px-6 py-4">
+                                <button type="button" class="mt-4 focus:outline-none text-white bg-red-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-2 py-2 me-1 mb-1">
+                                    Thanh toán
+                                </button>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="px-6 py-4 text-center">Không có dữ liệu</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

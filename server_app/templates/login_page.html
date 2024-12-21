@@ -1,0 +1,48 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Đăng nhập{% endblock %}
+
+{% block content %}
+{% if err_msg %}
+<div class="p-4 mb-4 text-sm text-red-800 bg-red-50" role="alert">
+    <span class="font-medium">{{ err_msg }}</span>
+  </div>
+{% endif %}
+<div class="flex justify-center items-center h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-80">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Đăng nhập</h2>
+        <form method="post">
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Tên đăng nhập</label>
+                <input type="text" id="username" name="username" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Mật khẩu</label>
+                <input type="password" id="password" name="password" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="userRole" class="block text-gray-700 text-sm font-bold mb-2">Loại người dùng</label>
+                <select id="userRole" name="userRole" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500">
+                    <option value="patient">Bệnh nhân</option>
+                    <option value="nurse">Y tá</option>
+                    <option value="doctor">Bác sĩ</option>
+                    <option value="cashier">Thu ngân</option>
+                </select>
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" value="Đăng nhập" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Đăng nhập</button>
+            </div>
+        </form>
+        <div class="mx-auto flex justify-center mt-2">
+          <div class="text-gray-900 dark:text-black text-center">
+              <span>Chưa có tài khoản? </span>
+              <a href="/register" class="text-blue-700 dark:text-blue-500 hover:underline">Đăng ký tại đây</a>
+          </div>
+        </div>
+        <div class="mt-2 dark:text-black text-center">
+            <a href="/login_admin" class="text-blue-700 dark:text-blue-500 hover:underline">Đăng nhập bằng quản trị viên</a>
+        </div>
+    </div>
+  </div>
+  
+{% endblock %}
